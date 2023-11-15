@@ -1,5 +1,8 @@
 package com.pddbend.shortlink.admin.controller;
 
+import com.pddbend.shortlink.admin.common.enums.UserErrorCodeEnum;
+import com.pddbend.shortlink.admin.common.convention.result.Result;
+import com.pddbend.shortlink.admin.common.convention.result.Results;
 import com.pddbend.shortlink.admin.dto.resp.UserRespDTO;
 import com.pddbend.shortlink.admin.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +24,13 @@ public class UserController {
      * 根据用户名查询信息
      */
     @GetMapping("/api/short-link/admin/v1/user/{username}")
-    public UserRespDTO getUserByUsername(@PathVariable ("username") String username){
-        return userService.getUserByUsername(username);
-//        return "hello "+username;
+    public Result<UserRespDTO> getUserByUsername(@PathVariable ("username") String username){
+        UserRespDTO result = userService.getUserByUsername(username);
+        if(result == null) {
+            return new Result<UserRespDTO>().setCode(UserErrorCodeEnum.USER_NOT_EXIST.code()).setMessage(UserErrorCodeEnum.USER_NOT_EXIST.message());
+        } else {
+            return Results.success(result);
+        }
     }
+
 }

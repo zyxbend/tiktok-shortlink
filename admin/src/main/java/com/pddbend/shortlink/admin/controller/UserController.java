@@ -1,8 +1,9 @@
 package com.pddbend.shortlink.admin.controller;
 
-import com.pddbend.shortlink.admin.common.enums.UserErrorCodeEnum;
+import cn.hutool.core.bean.BeanUtil;
 import com.pddbend.shortlink.admin.common.convention.result.Result;
 import com.pddbend.shortlink.admin.common.convention.result.Results;
+import com.pddbend.shortlink.admin.dto.resp.UserActualRespDTO;
 import com.pddbend.shortlink.admin.dto.resp.UserRespDTO;
 import com.pddbend.shortlink.admin.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -25,12 +26,13 @@ public class UserController {
      */
     @GetMapping("/api/short-link/admin/v1/user/{username}")
     public Result<UserRespDTO> getUserByUsername(@PathVariable ("username") String username){
-        UserRespDTO result = userService.getUserByUsername(username);
-        if(result == null) {
-            return new Result<UserRespDTO>().setCode(UserErrorCodeEnum.USER_NOT_EXIST.code()).setMessage(UserErrorCodeEnum.USER_NOT_EXIST.message());
-        } else {
-            return Results.success(result);
-        }
+        return Results.success(userService.getUserByUsername(username));
     }
+
+    @GetMapping("/api/short-link/admin/v1/actual/user/{username}")
+    public Result<UserActualRespDTO> getUserAactualByUsername(@PathVariable ("username") String username){
+        return Results.success(BeanUtil.toBean(userService.getUserByUsername(username),UserActualRespDTO.class));
+    }
+
 
 }

@@ -9,7 +9,10 @@ import com.pddbend.shortlink.admin.common.convention.errcode.IErrorCode;
  */
 public enum UserErrorCodeEnum implements IErrorCode {
     USER_NOT_EXIST("B000200", "用户记录不存在"),
-    USER_EXISTED("B000201", "用户记录已存在");
+    USER_EXISTED("B000201", "用户记录已存在"),
+    USER_NAME_EXISTED("B000202", "用户名已存在"),
+
+    USER_SAVE_ERROR("B000203", "用户新增记录失败");
 
 
     private final String code;

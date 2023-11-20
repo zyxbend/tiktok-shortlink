@@ -9,6 +9,7 @@ import com.pddbend.shortlink.admin.common.enums.UserErrorCodeEnum;
 import com.pddbend.shortlink.admin.dao.entity.UserDO;
 import com.pddbend.shortlink.admin.dao.mapper.UserMapper;
 import com.pddbend.shortlink.admin.dto.req.UserRegisterReqDTO;
+import com.pddbend.shortlink.admin.dto.req.UserUpdateReqDTO;
 import com.pddbend.shortlink.admin.dto.resp.UserRespDTO;
 import com.pddbend.shortlink.admin.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -63,6 +64,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
         return !userRegisterCachePenetrationBloomFilter.contains(username);
     }
 
+    /**
+     * 用户注册
+     * @param requestParam 用户注册请求参数
+     */
     @Override
     public void register(UserRegisterReqDTO requestParam) {
         if (!hasUserName(requestParam.getUsername())) {
@@ -82,6 +87,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
         } finally {
             lock.unlock();
         }
+    }
+
+    @Override
+    public void update(UserUpdateReqDTO requestParam) {
+        // TODO 验证当前用户是否有权限修改
+        LambdaQueryWrapper<UserDO> updateWrapper = Wrappers.lambdaQuery(UserDO.class)
+                .eq(UserDO::getUsername, requestParam.getUsername());
+        baseMapper.update(BeanUtil.toBean(requestParam, UserDO.class), updateWrapper);
     }
 
 

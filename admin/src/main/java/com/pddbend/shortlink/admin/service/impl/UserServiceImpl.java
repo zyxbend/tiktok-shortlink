@@ -158,5 +158,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
         return stringRedisTemplate.opsForHash().get("login_" + username, token) != null;
     }
 
+    /**
+     * 用户退出登陆
+     * @param token 用户登陆 Token
+     * @param username 用户名
+     */
+    @Override
+    public void logout(String token, String username) {
+        if (checkLogin(token, username)) {
+            stringRedisTemplate.delete("login_" + username);
+            return;
+        }
+        throw new ClientException(UserErrorCodeEnum.USER_NOT_LOGINED);
+
+    }
+
 
 }

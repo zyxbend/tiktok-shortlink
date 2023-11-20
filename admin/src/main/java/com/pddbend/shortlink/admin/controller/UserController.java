@@ -3,9 +3,11 @@ package com.pddbend.shortlink.admin.controller;
 import cn.hutool.core.bean.BeanUtil;
 import com.pddbend.shortlink.admin.common.convention.result.Result;
 import com.pddbend.shortlink.admin.common.convention.result.Results;
+import com.pddbend.shortlink.admin.dto.req.UserLoginRepDTO;
 import com.pddbend.shortlink.admin.dto.req.UserRegisterReqDTO;
 import com.pddbend.shortlink.admin.dto.req.UserUpdateReqDTO;
 import com.pddbend.shortlink.admin.dto.resp.UserActualRespDTO;
+import com.pddbend.shortlink.admin.dto.resp.UserLoginRespDTO;
 import com.pddbend.shortlink.admin.dto.resp.UserRespDTO;
 import com.pddbend.shortlink.admin.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -62,5 +64,23 @@ public class UserController {
     public Result<Void> update(@RequestBody UserUpdateReqDTO requestParam) {
         userService.update(requestParam);
         return Results.success();
+    }
+
+    /**
+     * 用户登录
+     */
+    @PostMapping("/api/short-link/admin/v1/user/login")
+    public Result<UserLoginRespDTO> login (@RequestBody UserLoginRepDTO requestParam) {
+        return Results.success(userService.login(requestParam));
+    }
+
+    /**
+     * 检查用户是否登陆
+     * @param token 用户登陆 Token
+     * @return true 已登陆 false 未登陆
+     */
+    @GetMapping("/api/short-link/admin/v1/user/check-login")
+    public Result<Boolean> checkLogin(@RequestParam("token") String token, @RequestParam("username") String username) {
+        return Results.success(userService.checkLogin(token, username));
     }
 }

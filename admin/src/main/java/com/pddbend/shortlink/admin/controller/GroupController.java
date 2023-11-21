@@ -3,6 +3,7 @@ package com.pddbend.shortlink.admin.controller;
 import com.pddbend.shortlink.admin.common.convention.result.Result;
 import com.pddbend.shortlink.admin.common.convention.result.Results;
 import com.pddbend.shortlink.admin.dto.req.GroupSaveReqDTO;
+import com.pddbend.shortlink.admin.dto.req.GroupSortReqDTO;
 import com.pddbend.shortlink.admin.dto.req.GroupUpdateReqDTO;
 import com.pddbend.shortlink.admin.dto.resp.GroupRespDTO;
 import com.pddbend.shortlink.admin.service.GroupService;
@@ -54,6 +55,15 @@ public class GroupController {
     @DeleteMapping("/api/short-link/admin/v1/group")
     public Result<Void> updateGroup(@RequestParam String gid) {
         groupService.deleteGroup(gid);
+        return Results.success();
+    }
+
+    /**
+     * 短链接分组排序
+     */
+    @PostMapping("/api/short-link/admin/v1/group/sort")
+    public Result<Void> sortGroup(@RequestBody List<GroupSortReqDTO> requestParam) {
+        groupService.sortGroup(requestParam);
         return Results.success();
     }
 }

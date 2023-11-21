@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pddbend.shortlink.admin.common.biz.user.UserContext;
 import com.pddbend.shortlink.admin.dao.entity.GroupDO;
 import com.pddbend.shortlink.admin.dao.mapper.GroupMapper;
+import com.pddbend.shortlink.admin.dto.req.GroupSortReqDTO;
 import com.pddbend.shortlink.admin.dto.req.GroupUpdateReqDTO;
 import com.pddbend.shortlink.admin.dto.resp.GroupRespDTO;
 import com.pddbend.shortlink.admin.service.GroupService;
@@ -49,6 +50,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
 
     /**
      * 查询用户所有短链接分组
+     *
      * @return 用户短链接分组列表
      */
     @Override
@@ -63,6 +65,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
 
     /**
      * 更新分组
+     *
      * @param requestParam 分组信息
      * @return 更新后的分组信息
      */
@@ -88,9 +91,30 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
         baseMapper.update(groupDO, updateWrapper);
     }
 
+    /**
+     * 短链接分组排序
+     *
+     * @param requestParam 分组排序信息
+     */
+    @Override
+    public void sortGroup(List<GroupSortReqDTO> requestParam) {
+        requestParam.forEach(each -> {
+            GroupDO groupDO = GroupDO.builder()
+                    .sortOrder(each.getSortOrder())
+                    .build();
+            LambdaUpdateWrapper<GroupDO> updateWrapper = Wrappers.lambdaUpdate(GroupDO.class)
+                    .eq(GroupDO::getUsername, UserContext.getUsername())
+                    .eq(GroupDO::getGid, each.getGid())
+                    .eq(GroupDO::getDelFlag, 0);
+            baseMapper.update(groupDO, updateWrapper);
+        });
+
+    }
+
 
     /**
      * 判断gid是否存在
+     *
      * @param gid 分组标识
      * @return 是否存在
      */

@@ -16,23 +16,33 @@ public interface GroupService extends IService<GroupDO> {
 
     /**
      * 新增短链接分组
+     *
      * @param groupName 短链接分组名称
      */
     void saveGroup(String groupName);
 
     /**
      * 查询用户所有短链接分组
+     *
      * @return 用户短链接分组列表
      */
     List<GroupRespDTO> listGroup();
 
     /**
      * 更新分组
+     *
      * @param requestParam 分组信息
      * @return 更新后的分组信息
      */
     void updateGroup(GroupUpdateReqDTO requestParam);
 
+
+    /**
+     * 删除短链接分组
+     *
+     * @param gid 短链接分组id
+     */
+    void deleteGroup(String gid);
 
 
 }

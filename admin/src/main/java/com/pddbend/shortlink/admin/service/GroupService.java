@@ -2,6 +2,9 @@ package com.pddbend.shortlink.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.pddbend.shortlink.admin.dao.entity.GroupDO;
+import com.pddbend.shortlink.admin.dto.resp.GroupRespDTO;
+
+import java.util.List;
 
 /**
  * @Author: pddbend
@@ -15,4 +18,6 @@ public interface GroupService extends IService<GroupDO> {
      * @param groupName 短链接分组名称
      */
     void saveGroup(String groupName);
+
+    List<GroupRespDTO> listGroup();
 }

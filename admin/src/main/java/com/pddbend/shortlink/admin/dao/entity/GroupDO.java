@@ -3,6 +3,8 @@ package com.pddbend.shortlink.admin.dao.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * @Author: pddbend
  * @Date: 2023-11-21-上午9:54

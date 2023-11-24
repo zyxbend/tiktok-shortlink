@@ -1,9 +1,12 @@
 package com.pddbend.shortlink.project.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.pddbend.shortlink.project.dao.entity.ShortLinkDO;
 import com.pddbend.shortlink.project.dto.req.ShortLinkCreateReqDTO;
+import com.pddbend.shortlink.project.dto.req.ShortLinkPageReqDTO;
 import com.pddbend.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
+import com.pddbend.shortlink.project.dto.resp.ShortLinkPageRespDTO;
 
 /**
  * @Author: pddbend
@@ -18,4 +21,11 @@ public interface ShortLinkService extends IService<ShortLinkDO> {
      * @return 短链接响应参数
      */
     ShortLinkCreateRespDTO createShortLink(ShortLinkCreateReqDTO requestParam);
+
+    /**
+     * 分页查询短链接
+     * @param requestParam 请求参数
+     * @return 短链接响应参数
+     */
+    IPage<ShortLinkPageRespDTO> pageShortLink(ShortLinkPageReqDTO requestParam);
 }

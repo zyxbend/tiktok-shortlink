@@ -50,6 +50,7 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
                 .describe(requestParam.getDescribe())
                 .shortUri(shortLinkSuffix)
                 .fullShortUrl(fullShortUrl)
+                .enableStatus(0)
                 .gid(requestParam.getGid())
                 .build();
         try {

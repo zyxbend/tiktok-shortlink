@@ -47,19 +47,30 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
      */
     @Override
     public void saveGroup(String groupName) {
+        this.saveGroup(UserContext.getUsername(), groupName);
+    }
+        /**
+     * 新增短链接分组
+     *
+     * @param groupName 短链接分组名称
+     */
+
+    public void saveGroup(String username, String groupName) {
         String gid;
         do {
             gid = RandomGenerator.generatorRandom();
 
-        } while (!hasGid(gid));
+        } while (!hasGid(username,gid));
         GroupDO groupDO = GroupDO.builder()
                 .gid(RandomGenerator.generatorRandom())
                 .name(groupName)
-                .username(UserContext.getUsername())
+                .username(username)
                 .sortOrder(0)
                 .build();
         baseMapper.insert(groupDO);
     }
+
+
 
     /**
      * 查询用户所有短链接分组
@@ -140,10 +151,10 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
      * @param gid 分组标识
      * @return 是否存在
      */
-    private boolean hasGid(String gid) {
+    private boolean hasGid(String username,String gid) {
         LambdaQueryWrapper<GroupDO> queryWrapper = Wrappers.lambdaQuery(GroupDO.class)
                 .eq(GroupDO::getGid, gid)
-                .eq(GroupDO::getUsername, UserContext.getUsername());
+                .eq(GroupDO::getUsername, Optional.ofNullable(username).orElse(UserContext.getUsername()));
         GroupDO hasGroupFlag = baseMapper.selectOne(queryWrapper);
         return hasGroupFlag == null;
     }

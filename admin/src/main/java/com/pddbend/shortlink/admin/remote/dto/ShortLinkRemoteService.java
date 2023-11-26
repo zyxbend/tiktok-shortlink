@@ -8,9 +8,11 @@ import com.pddbend.shortlink.admin.common.convention.result.Result;
 import com.pddbend.shortlink.admin.remote.dto.req.ShortLinkCreateReqDTO;
 import com.pddbend.shortlink.admin.remote.dto.req.ShortLinkPageReqDTO;
 import com.pddbend.shortlink.admin.remote.dto.resp.ShortLinkCreateRespDTO;
+import com.pddbend.shortlink.admin.remote.dto.resp.ShortLinkGroupCountQueryRespDTO;
 import com.pddbend.shortlink.admin.remote.dto.resp.ShortLinkPageRespDTO;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,9 +20,10 @@ import java.util.Map;
  * @Date: 2023-11-26-下午2:37
  * @Description: 短连接中台远程调用服务
  */
-public interface  ShortLinkRemoteService {
+public interface ShortLinkRemoteService {
     /**
      * 创建短链接
+     *
      * @param requestParam 创建短链接请求参数
      * @return 创建短链接响应
      */
@@ -30,6 +33,12 @@ public interface  ShortLinkRemoteService {
         });
     }
 
+    /**
+     * 分页查询短链接
+     *
+     * @param requestParam 分页查询短链接请求参数
+     * @return 分页查询短链接响应
+     */
     default Result<IPage<ShortLinkPageRespDTO>> pageShortLink(ShortLinkPageReqDTO requestParam) {
         Map<String, Object> requestMap = new HashMap<>();
         requestMap.put("gid", requestParam.getGid());
@@ -40,4 +49,20 @@ public interface  ShortLinkRemoteService {
         return JSON.parseObject(resultPageStr, new TypeReference<>() {
         });
     }
+
+
+    /**
+     * 查询分组短链接总量
+     *
+     * @param requestParam 分组短链接总量请求参数
+     * @return 查询分组短链接总量响应
+     */
+    default Result<List<ShortLinkGroupCountQueryRespDTO>> listGroupShortLinkCount(List<String> requestParam) {
+        Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put("requestParam", requestParam);
+        String resultPageStr = HttpUtil.get("http://127.0.0.1:8001/api/short-link/v1/count", requestMap);
+        return JSON.parseObject(resultPageStr, new TypeReference<>() {
+        });
+    }
+
 }

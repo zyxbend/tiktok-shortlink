@@ -6,11 +6,11 @@ import com.pddbend.shortlink.admin.remote.dto.ShortLinkRemoteService;
 import com.pddbend.shortlink.admin.remote.dto.req.ShortLinkCreateReqDTO;
 import com.pddbend.shortlink.admin.remote.dto.req.ShortLinkPageReqDTO;
 import com.pddbend.shortlink.admin.remote.dto.resp.ShortLinkCreateRespDTO;
+import com.pddbend.shortlink.admin.remote.dto.resp.ShortLinkGroupCountQueryRespDTO;
 import com.pddbend.shortlink.admin.remote.dto.resp.ShortLinkPageRespDTO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @Author: pddbend
@@ -19,6 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class ShortLinkController {
+    /**
+     * 短链接中台远程调用服务
+     * TODO: 后续重构为Spring Cloud Feign调用
+     */
     ShortLinkRemoteService shortLinkRemoteService = new ShortLinkRemoteService() {
     };
 
@@ -36,6 +40,14 @@ public class ShortLinkController {
     @GetMapping("/api/short-link/admin/v1/page")
     public Result<IPage<ShortLinkPageRespDTO>> pageShortLink(ShortLinkPageReqDTO requestParam) {
         return shortLinkRemoteService.pageShortLink(requestParam);
+    }
+
+    /**
+     * 查询短链接分组内数量
+     */
+    @GetMapping("/api/short-link/admin/v1/count")
+    public Result<List<ShortLinkGroupCountQueryRespDTO>> listGroupShortLinkCount(@RequestParam("requestParam") List<String> requestParam) {
+        return shortLinkRemoteService.listGroupShortLinkCount(requestParam);
     }
 
 

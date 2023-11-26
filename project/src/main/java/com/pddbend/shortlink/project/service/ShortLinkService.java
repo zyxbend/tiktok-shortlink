@@ -6,7 +6,10 @@ import com.pddbend.shortlink.project.dao.entity.ShortLinkDO;
 import com.pddbend.shortlink.project.dto.req.ShortLinkCreateReqDTO;
 import com.pddbend.shortlink.project.dto.req.ShortLinkPageReqDTO;
 import com.pddbend.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
+import com.pddbend.shortlink.project.dto.resp.ShortLinkGroupCountQueryRespDTO;
 import com.pddbend.shortlink.project.dto.resp.ShortLinkPageRespDTO;
+
+import java.util.List;
 
 /**
  * @Author: pddbend
@@ -28,4 +31,11 @@ public interface ShortLinkService extends IService<ShortLinkDO> {
      * @return 短链接响应参数
      */
     IPage<ShortLinkPageRespDTO> pageShortLink(ShortLinkPageReqDTO requestParam);
+
+    /**
+     * 查询短链接分组内数量
+     * @param requestParam 请求参数
+     * @return 短链接响应参数
+     */
+    List<ShortLinkGroupCountQueryRespDTO> listGroupShortLinkCount(List<String> requestParam);
 }

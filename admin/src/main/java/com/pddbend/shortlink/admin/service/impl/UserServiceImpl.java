@@ -122,11 +122,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     public UserLoginRespDTO login(UserLoginRepDTO requestParam) {
         LambdaQueryWrapper<UserDO> queryWrapper = Wrappers.lambdaQuery(UserDO.class)
                 .eq(UserDO::getUsername, requestParam.getUsername())
-                .eq(UserDO::getPassword, requestParam.getPassword())
                 .eq(UserDO::getDelFlag, 0);
         UserDO userDO = baseMapper.selectOne(queryWrapper);
         if (userDO == null) {
             throw new ClientException(UserErrorCodeEnum.USER_NOT_EXIST);
+        }
+        if (!userDO.getPassword().equals(requestParam.getPassword())) {
+            throw new ClientException(UserErrorCodeEnum.USER_PASSWORD_WRONG);
         }
         Boolean hasLogined = stringRedisTemplate.hasKey("login_" + requestParam.getUsername());
         if (hasLogined != null && hasLogined) {
@@ -160,7 +162,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
 
     /**
      * 用户退出登陆
-     * @param token 用户登陆 Token
+     *
+     * @param token    用户登陆 Token
      * @param username 用户名
      */
     @Override

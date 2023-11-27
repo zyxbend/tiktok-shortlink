@@ -10,6 +10,8 @@ import com.pddbend.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
 import com.pddbend.shortlink.project.dto.resp.ShortLinkGroupCountQueryRespDTO;
 import com.pddbend.shortlink.project.dto.resp.ShortLinkPageRespDTO;
 import com.pddbend.shortlink.project.service.ShortLinkService;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +28,14 @@ public class ShortLinkController {
 
 
     private final ShortLinkService shortLinkService;
+
+    /**
+     * 短链接跳转原始链接
+     */
+    @GetMapping("/{short-uri}")
+    public void redirect(@PathVariable("short-uri") String shortUri, ServletRequest request, ServletResponse response) {
+        shortLinkService.restoreUrl(shortUri, request, response);
+    }
 
     /**
      * 创建短链接

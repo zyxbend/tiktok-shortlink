@@ -2,9 +2,11 @@ package com.pddbend.shortlink.admin.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.pddbend.shortlink.admin.common.convention.result.Result;
+import com.pddbend.shortlink.admin.common.convention.result.Results;
 import com.pddbend.shortlink.admin.remote.dto.ShortLinkRemoteService;
 import com.pddbend.shortlink.admin.remote.dto.req.ShortLinkCreateReqDTO;
 import com.pddbend.shortlink.admin.remote.dto.req.ShortLinkPageReqDTO;
+import com.pddbend.shortlink.admin.remote.dto.req.ShortLinkUpdateReqDTO;
 import com.pddbend.shortlink.admin.remote.dto.resp.ShortLinkCreateRespDTO;
 import com.pddbend.shortlink.admin.remote.dto.resp.ShortLinkGroupCountQueryRespDTO;
 import com.pddbend.shortlink.admin.remote.dto.resp.ShortLinkPageRespDTO;
@@ -50,5 +52,12 @@ public class ShortLinkController {
         return shortLinkRemoteService.listGroupShortLinkCount(requestParam);
     }
 
-
+    /**
+     * 更新短链接
+     */
+    @PostMapping("/api/short-link/admin/v1/update")
+    public Result<Void> updateShortLink(@RequestBody ShortLinkUpdateReqDTO requestParam) {
+        shortLinkRemoteService.updateShortLink(requestParam);
+        return Results.success();
+    }
 }

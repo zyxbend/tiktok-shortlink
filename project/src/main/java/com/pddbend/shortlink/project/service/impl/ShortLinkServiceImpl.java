@@ -195,10 +195,12 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
         }
         boolean containsLink = shortUriCreateCachePenetrationBloomFilter.contains(fullShortUrl);
         if (!containsLink) {
+            ((HttpServletResponse) response).sendRedirect("/page/notfound");
             return;
         }
         String gotoLinkIsNull = stringRedisTemplate.opsForValue().get(String.format(GOTO_IS_NULL_SHORT_LINK_KEY, fullShortUrl));
         if (StrUtil.isNotBlank(gotoLinkIsNull)) {
+            ((HttpServletResponse) response).sendRedirect("/page/notfound");
             return;
         }
 
@@ -215,7 +217,7 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
             ShortLinkGotoDO shortLinkGotoDO = shortLinkGotoMapper.selectOne(queryWrapper);
             if (shortLinkGotoDO == null) {
                 stringRedisTemplate.opsForValue().set(String.format(GOTO_IS_NULL_SHORT_LINK_KEY, fullShortUrl), "-", 30, TimeUnit.MINUTES);
-                throw new ServiceException("短链接不存在");
+                ((HttpServletResponse) response).sendRedirect("/page/notfound");
             }
             LambdaUpdateWrapper<ShortLinkDO> updateWrapper = Wrappers.lambdaUpdate(ShortLinkDO.class)
                     .eq(ShortLinkDO::getFullShortUrl, fullShortUrl)

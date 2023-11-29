@@ -1,8 +1,11 @@
 package com.pddbend.shortlink.project.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.pddbend.shortlink.project.dao.entity.ShortLinkDO;
 import com.pddbend.shortlink.project.dto.req.RecycleBinSaveReqDTO;
+import com.pddbend.shortlink.project.dto.req.ShortLinkPageReqDTO;
+import com.pddbend.shortlink.project.dto.resp.ShortLinkPageRespDTO;
 
 /**
  * @Author: pddbend
@@ -16,4 +19,11 @@ public interface RecycleBinService extends IService<ShortLinkDO> {
      * @param requestParam 请求参数
      */
     void saveRecycleBin(RecycleBinSaveReqDTO requestParam);
+
+    /**
+     * 分页查询回收站内短链接
+     * @param requestParam 请求参数
+     * @return 短链接分页列表
+     */
+    IPage<ShortLinkPageRespDTO> pageRecycleBin(ShortLinkPageReqDTO requestParam);
 }

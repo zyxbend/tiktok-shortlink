@@ -8,7 +8,7 @@ import lombok.Data;
  * @Description: 回收站保存请求参数
  */
 @Data
-public class RecycleBinSaveReqDTO {
+public class ShortLinkRecycleBinSaveReqDTO {
     /**
      * 分组标识
      */

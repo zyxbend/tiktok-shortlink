@@ -3,8 +3,8 @@ package com.pddbend.shortlink.project.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.pddbend.shortlink.project.common.convention.result.Result;
 import com.pddbend.shortlink.project.common.convention.result.Results;
-import com.pddbend.shortlink.project.dto.req.RecycleBinSaveReqDTO;
-import com.pddbend.shortlink.project.dto.req.ShortLinkPageReqDTO;
+import com.pddbend.shortlink.project.dto.req.ShortLinkRecycleBinPageReqDTO;
+import com.pddbend.shortlink.project.dto.req.ShortLinkRecycleBinSaveReqDTO;
 import com.pddbend.shortlink.project.dto.resp.ShortLinkPageRespDTO;
 import com.pddbend.shortlink.project.service.RecycleBinService;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ public class RecycleBinController {
      * 短链接移至回收站
      */
     @PostMapping("/api/short-link/v1/recycle-bin/save")
-    public Result<Void> saveRecycleBin(@RequestBody RecycleBinSaveReqDTO requestParam) {
+    public Result<Void> saveRecycleBin(@RequestBody ShortLinkRecycleBinSaveReqDTO requestParam) {
         recycleBinService.saveRecycleBin(requestParam);
         return Results.success();
     }
@@ -38,7 +38,7 @@ public class RecycleBinController {
      * 分页查询回收站内短链接
      */
     @GetMapping("/api/short-link/v1/recycle-bin/page")
-    public Result<IPage<ShortLinkPageRespDTO>> pageRecycleBin(ShortLinkPageReqDTO requestParam) {
+    public Result<IPage<ShortLinkPageRespDTO>> pageRecycleBin(ShortLinkRecycleBinPageReqDTO requestParam) {
         return Results.success(recycleBinService.pageRecycleBin(requestParam));
     }
 }

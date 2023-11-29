@@ -4,11 +4,11 @@ import lombok.Data;
 
 /**
  * @Author: pddbend
- * @Date: 2023-11-29-15:05
+ * @Date: 2023-11-29-21:00
  * @Description: 回收站保存请求参数
  */
 @Data
-public class RecycleBinSaveReqDTO {
+public class ShortLinkRecycleBinSaveReqDTO {
     /**
      * 分组标识
      */

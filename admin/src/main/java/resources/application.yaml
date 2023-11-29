@@ -19,7 +19,7 @@ spring:
 #      minimum-idle: 5
   data:
     redis:
-      host: 127.0.0.1
+      host: 10.96.65.75
       port: 6379
       password: tiktokRedis
 

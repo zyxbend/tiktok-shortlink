@@ -5,6 +5,7 @@ import com.pddbend.shortlink.project.common.convention.result.Result;
 import com.pddbend.shortlink.project.common.convention.result.Results;
 import com.pddbend.shortlink.project.dto.req.ShortLinkRecycleBinPageReqDTO;
 import com.pddbend.shortlink.project.dto.req.ShortLinkRecycleBinRecoverReqDTO;
+import com.pddbend.shortlink.project.dto.req.ShortLinkRecycleBinRemoveReqDTO;
 import com.pddbend.shortlink.project.dto.req.ShortLinkRecycleBinSaveReqDTO;
 import com.pddbend.shortlink.project.dto.resp.ShortLinkPageRespDTO;
 import com.pddbend.shortlink.project.service.RecycleBinService;
@@ -49,6 +50,15 @@ public class RecycleBinController {
     @PostMapping("/api/short-link/v1/recycle-bin/recover")
     public Result<Void> recoverRecycleBin(@RequestBody ShortLinkRecycleBinRecoverReqDTO requestParam) {
         recycleBinService.recoverRecycleBin(requestParam);
+        return Results.success();
+    }
+
+    /**
+     * 短链接从回收站删除
+     */
+    @PostMapping("/api/short-link/v1/recycle-bin/remove")
+    public Result<Void> removeRecycleBin(@RequestBody ShortLinkRecycleBinRemoveReqDTO requestParam) {
+        recycleBinService.removeRecycleBin(requestParam);
         return Results.success();
     }
 }

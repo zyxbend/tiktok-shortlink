@@ -9,6 +9,7 @@ import com.pddbend.shortlink.admin.remote.dto.req.ShortLinkRecycleBinSaveReqDTO;
 import com.pddbend.shortlink.admin.remote.dto.resp.ShortLinkPageRespDTO;
 import com.pddbend.shortlink.admin.service.RecycleBinService;
 import com.pddbend.shortlink.admin.remote.dto.req.ShortLinkRecycleBinRecoverReqDTO;
+import com.pddbend.shortlink.admin.remote.dto.req.ShortLinkRecycleBinRemoveReqDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,12 +47,21 @@ public class RecycleBinController {
         return recycleBinService.pageRecycleBinShortLink(requestParam);
     }
 
-        /**
+    /**
      * 短链接从回收站恢复
      */
     @PostMapping("/api/short-link/admin/v1/recycle-bin/recover")
     public Result<Void> recoverRecycleBin(@RequestBody ShortLinkRecycleBinRecoverReqDTO requestParam) {
         shortLinkRemoteService.recoverRecycleBin(requestParam);
+        return Results.success();
+    }
+
+    /**
+     * 短链接从回收站删除
+     */
+    @PostMapping("/api/short-link/admin/v1/recycle-bin/remove")
+    public Result<Void> removeRecycleBin(@RequestBody ShortLinkRecycleBinRemoveReqDTO requestParam) {
+        shortLinkRemoteService.removeRecycleBin(requestParam);
         return Results.success();
     }
 }

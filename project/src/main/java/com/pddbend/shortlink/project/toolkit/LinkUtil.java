@@ -2,6 +2,7 @@ package com.pddbend.shortlink.project.toolkit;
 
 import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Date;
 import java.util.Optional;
@@ -24,5 +25,32 @@ public class LinkUtil {
         return Optional.ofNullable(validDate)
                 .map(each -> DateUtil.between(new Date(), each, DateUnit.MS))
                 .orElse(DEFAULT_CACHE_VALID_TIME);
+    }
+
+    /**
+     * 获取用户真实IP
+     *
+     * @param request 请求
+     * @return 用户真实IP
+     */
+    public static String getActualIp(HttpServletRequest request) {
+        String[] headers = {
+                "X-Forwarded-For",
+                "Proxy-Client-IP",
+                "WL-Proxy-Client-IP",
+                "HTTP_CLIENT_IP",
+                "HTTP_X_FORWARDED_FOR"
+        };
+        String ipAddress = null;
+        for (String header : headers) {
+            ipAddress = request.getHeader(header);
+            if (ipAddress != null && !ipAddress.isEmpty() && !"unknown".equalsIgnoreCase(ipAddress)) {
+                break;
+            }
+        }
+        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+            ipAddress = request.getRemoteAddr();
+        }
+        return ipAddress;
     }
 }

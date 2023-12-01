@@ -80,4 +80,30 @@ public class LinkUtil {
 
         return "Unknown";
     }
+
+    /**
+     * 获取用户访问浏览器
+     *
+     * @param request 请求
+     * @return 访问浏览器
+     */
+    public static String getBrowser(HttpServletRequest request) {
+        String userAgent = request.getHeader("User-Agent").toLowerCase();
+        Map<String, String> browserMap = new LinkedHashMap<>();
+        browserMap.put("edg", "Microsoft Edge");
+        browserMap.put("chrome", "Google Chrome");
+        browserMap.put("firefox", "Mozilla Firefox");
+        browserMap.put("safari", "Apple Safari");
+        browserMap.put("opera", "Opera");
+        browserMap.put("msie", "Internet Explorer");
+        browserMap.put("trident", "Internet Explorer");
+
+        for (Map.Entry<String, String> browser : browserMap.entrySet()) {
+            if (userAgent.contains(browser.getKey())) {
+                return browser.getValue();
+            }
+        }
+
+        return "Unknown";
+    }
 }

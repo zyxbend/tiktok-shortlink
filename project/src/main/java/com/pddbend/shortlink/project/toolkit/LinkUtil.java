@@ -5,6 +5,8 @@ import cn.hutool.core.date.DateUtil;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import static com.pddbend.shortlink.project.common.constant.ShortLinkConstant.DEFAULT_CACHE_VALID_TIME;
@@ -52,5 +54,30 @@ public class LinkUtil {
             ipAddress = request.getRemoteAddr();
         }
         return ipAddress;
+    }
+
+    /**
+     * 获取用户访问操作系统
+     *
+     * @param request 请求
+     * @return 访问操作系统
+     */
+    public static String getOs(HttpServletRequest request) {
+        String userAgent = request.getHeader("User-Agent").toLowerCase();
+        Map<String, String> osMap = new LinkedHashMap<>();
+        osMap.put("windows", "Windows");
+        osMap.put("mac", "Mac OS");
+        osMap.put("linux", "Linux");
+        osMap.put("android", "Android");
+        osMap.put("iphone", "iOS");
+        osMap.put("ipad", "iOS");
+
+        for (Map.Entry<String, String> os : osMap.entrySet()) {
+            if (userAgent.contains(os.getKey())) {
+                return os.getValue();
+            }
+        }
+
+        return "Unknown";
     }
 }

@@ -1,6 +1,9 @@
 package com.pddbend.shortlink.project.dto.resp;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @Author: pddbend
@@ -8,6 +11,9 @@ import lombok.Data;
  * @Description: 短链接基础访问监控响应参数
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ShortLinkStatsAccessDailyRespDTO {
 
     /**

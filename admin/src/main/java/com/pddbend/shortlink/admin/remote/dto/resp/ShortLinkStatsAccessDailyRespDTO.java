@@ -1,4 +1,4 @@
-package com.pddbend.shortlink.project.dto.resp;
+package com.pddbend.shortlink.admin.remote.dto.resp;
 
 import lombok.Data;
 

@@ -2,6 +2,7 @@ package com.pddbend.shortlink.project.dao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.pddbend.shortlink.project.dao.entity.LinkAccessLogsDO;
+import com.pddbend.shortlink.project.dao.entity.LinkAccessStatsDO;
 import com.pddbend.shortlink.project.dto.req.ShortLinkStatsReqDTO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -86,5 +87,22 @@ public interface LinkAccessLogsMapper extends BaseMapper<LinkAccessLogsDO> {
             @Param("endDate") String endDate,
             @Param("userAccessLogsList") List<String> userAccessLogsList
     );
+
+    /**
+     * 根据短链接获取指定日期内PV、UV、UIP数据
+     */
+    @Select("SELECT " +
+            "    COUNT(user) AS pv, " +
+            "    COUNT(DISTINCT user) AS uv, " +
+            "    COUNT(DISTINCT ip) AS uip " +
+            "FROM " +
+            "    t_link_access_logs " +
+            "WHERE " +
+            "    full_short_url = #{param.fullShortUrl} " +
+            "    AND gid = #{param.gid} " +
+            "    AND create_time BETWEEN #{param.startDate} and #{param.endDate} " +
+            "GROUP BY " +
+            "    full_short_url, gid;")
+    LinkAccessStatsDO findPvUvUidStatsByShortLink(@Param("param") ShortLinkStatsReqDTO requestParam);
 }
 

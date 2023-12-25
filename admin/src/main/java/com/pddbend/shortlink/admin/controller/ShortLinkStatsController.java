@@ -3,11 +3,12 @@ package com.pddbend.shortlink.admin.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.pddbend.shortlink.admin.common.convention.result.Result;
 import com.pddbend.shortlink.admin.remote.dto.ShortLinkRemoteService;
+import com.pddbend.shortlink.admin.remote.dto.req.ShortLinkGroupStatsAccessRecordReqDTO;
+import com.pddbend.shortlink.admin.remote.dto.req.ShortLinkGroupStatsReqDTO;
 import com.pddbend.shortlink.admin.remote.dto.req.ShortLinkStatsAccessRecordReqDTO;
 import com.pddbend.shortlink.admin.remote.dto.req.ShortLinkStatsReqDTO;
 import com.pddbend.shortlink.admin.remote.dto.resp.ShortLinkStatsAccessRecordRespDTO;
 import com.pddbend.shortlink.admin.remote.dto.resp.ShortLinkStatsRespDTO;
-import com.pddbend.shortlink.admin.remote.dto.req.ShortLinkGroupStatsReqDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,5 +50,13 @@ public class ShortLinkStatsController {
     @GetMapping("/api/short-link/admin/v1/stats/group")
     public Result<ShortLinkStatsRespDTO> groupShortLinkStats(ShortLinkGroupStatsReqDTO requestParam) {
         return shortLinkRemoteService.groupShortLinkStats(requestParam);
+    }
+
+    /**
+     * 访问分组短链接指定时间内访问记录监控数据
+     */
+    @GetMapping("/api/short-link/admin/v1/stats/access-record/group")
+    public Result<IPage<ShortLinkStatsAccessRecordRespDTO>> groupShortLinkStatsAccessRecord(ShortLinkGroupStatsAccessRecordReqDTO requestParam) {
+        return shortLinkRemoteService.groupShortLinkStatsAccessRecord(requestParam);
     }
 }

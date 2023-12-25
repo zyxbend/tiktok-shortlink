@@ -13,10 +13,6 @@ import org.apache.ibatis.annotations.Update;
  * @Description: 短链接持久层
  */
 public interface ShortLinkMapper extends BaseMapper<ShortLinkDO> {
-    /**
-     * 分页统计短链接
-     */
-    IPage<ShortLinkDO> pageLink(ShortLinkPageReqDTO requestParam);
 
     /**
      * 短链接访问统计自增

@@ -1,5 +1,7 @@
 package com.pddbend.shortlink.admin.dto.resp;
 
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.annotation.write.style.ColumnWidth;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

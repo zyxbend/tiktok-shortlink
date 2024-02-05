@@ -23,3 +23,6 @@ spring:
       port: 6379
       password: tiktokRedis
 
+short-link:
+  domain:
+    default: tklink.ink

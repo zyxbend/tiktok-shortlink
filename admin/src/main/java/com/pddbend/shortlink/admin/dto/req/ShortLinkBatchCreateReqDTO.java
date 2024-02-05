@@ -1,34 +1,28 @@
-package com.pddbend.shortlink.project.dto.req;
+package com.pddbend.shortlink.admin.dto.req;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author: pddbend
- * @Date: 2023-11-22-上午10:14
- * @Description: 创建短链接请求参数
+ * @Date: 2024-02-05-20:14
+ * @Description: 短链接批量创建请求对象
  */
-
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class ShortLinkCreateReqDTO {
+public class ShortLinkBatchCreateReqDTO {
 
     /**
-     * 域名
+     * 原始链接集合
      */
-    private String domain;
+    private List<String> originUrls;
 
     /**
-     * 原始链接
+     * 描述集合
      */
-    private String originUrl;
+    private List<String> describes;
 
     /**
      * 分组标识
@@ -50,9 +44,4 @@ public class ShortLinkCreateReqDTO {
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date validDate;
-
-    /**
-     * 描述
-     */
-    private String describe;
 }

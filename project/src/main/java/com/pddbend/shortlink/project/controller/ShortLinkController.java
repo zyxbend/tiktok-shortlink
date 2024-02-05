@@ -3,9 +3,11 @@ package com.pddbend.shortlink.project.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.pddbend.shortlink.project.common.convention.result.Result;
 import com.pddbend.shortlink.project.common.convention.result.Results;
+import com.pddbend.shortlink.project.dto.req.ShortLinkBatchCreateReqDTO;
 import com.pddbend.shortlink.project.dto.req.ShortLinkCreateReqDTO;
 import com.pddbend.shortlink.project.dto.req.ShortLinkPageReqDTO;
 import com.pddbend.shortlink.project.dto.req.ShortLinkUpdateReqDTO;
+import com.pddbend.shortlink.project.dto.resp.ShortLinkBatchCreateRespDTO;
 import com.pddbend.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
 import com.pddbend.shortlink.project.dto.resp.ShortLinkGroupCountQueryRespDTO;
 import com.pddbend.shortlink.project.dto.resp.ShortLinkPageRespDTO;
@@ -20,7 +22,7 @@ import java.util.List;
 /**
  * @Author: pddbend
  * @Date: 2023-11-22-上午10:04
- * @Description:  短链接控制层
+ * @Description: 短链接控制层
  */
 @RestController
 @RequiredArgsConstructor
@@ -47,6 +49,14 @@ public class ShortLinkController {
     }
 
     /**
+     * 批量创建短链接
+     */
+    @PostMapping("/api/short-link/v1/create/batch")
+    public Result<ShortLinkBatchCreateRespDTO> batchCreateShortLink(@RequestBody ShortLinkBatchCreateReqDTO requestParam) {
+        return Results.success(shortLinkService.batchCreateShortLink(requestParam));
+    }
+
+    /**
      * 分页查询短链接
      */
     @GetMapping("/api/short-link/v1/page")
@@ -65,7 +75,7 @@ public class ShortLinkController {
     /**
      * 更新短链接
      */
-    @PostMapping ("/api/short-link/v1/update")
+    @PostMapping("/api/short-link/v1/update")
     public Result<Void> updateShortLink(@RequestBody ShortLinkUpdateReqDTO requestParam) {
         shortLinkService.updateShortLink(requestParam);
         return Results.success();

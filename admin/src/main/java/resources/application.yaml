@@ -25,4 +25,4 @@ spring:
 
 short-link:
   domain:
-    default: tklink.ink
+    default: tklink.ink:8001

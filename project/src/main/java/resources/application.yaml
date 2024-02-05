@@ -33,6 +33,15 @@ short-link:
   stats:
     locale:
       amap-key: c9051fbec96d9693cfde943b7247b93a
+  goto-domain:
+    white-list:
+      enable: true
+      names: '抖音,知乎,掘金,博客园'
+      details:
+        - douyin.com
+        - zhihu.com
+        - juejin.cn
+        - cnblogs.com
 
 mybatis-plus:
   configuration:

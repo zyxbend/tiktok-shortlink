@@ -26,3 +26,5 @@ spring:
 short-link:
   domain:
     default: tklink.ink:8001
+  group:
+    max-num: 20

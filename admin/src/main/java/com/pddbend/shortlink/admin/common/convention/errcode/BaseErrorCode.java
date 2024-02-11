@@ -11,6 +11,8 @@ public enum BaseErrorCode implements IErrorCode {
     CLIENT_ERROR("A000001", "用户端错误"),
 
     // ========== 二级宏观错误码 用户注册错误 ==========
+        // ========== 二级宏观错误码 系统请求操作频繁 ==========
+    FLOW_LIMIT_ERROR("A000300", "当前系统繁忙，请稍后再试"),
     USER_REGISTER_ERROR("A000100", "用户注册错误"),
     USER_NAME_VERIFY_ERROR("A000110", "用户名校验失败"),
     USER_NAME_EXIST_ERROR("A000111", "用户名已存在"),

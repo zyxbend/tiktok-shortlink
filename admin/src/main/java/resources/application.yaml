@@ -28,3 +28,7 @@ short-link:
     default: tklink.ink:8001
   group:
     max-num: 20
+  flow-limit:
+    enable: true
+    time-window: 1
+    max-access-count: 20

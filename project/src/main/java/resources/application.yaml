@@ -23,9 +23,6 @@ spring:
       host: 10.96.65.75
       port: 6379
       password: tiktokRedis
-    channel-topic:
-      short-link-stats: 'short_link:stats-stream'
-      short-link-stats-group: 'short_link:stats-stream:only-group'
 
   mvc:
     view:

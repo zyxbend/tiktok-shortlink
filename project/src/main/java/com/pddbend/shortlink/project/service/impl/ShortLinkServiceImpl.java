@@ -126,15 +126,7 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
             baseMapper.insert(shortLinkDO);
             shortLinkGotoMapper.insert(linkGotoDO);
         } catch (DuplicateKeyException e) {
-            // TODO: 2023-11-22 重复入库，需要处理
-            LambdaQueryWrapper<ShortLinkDO> queryWrapper = Wrappers.lambdaQuery(ShortLinkDO.class)
-                    .eq(ShortLinkDO::getFullShortUrl, fullShortUrl);
-            ShortLinkDO hasShortLinkDo = baseMapper.selectOne(queryWrapper);
-            if (hasShortLinkDo != null) {
-                log.warn("短连接：{}重复入库", fullShortUrl);
-                throw new ServiceException("短链接重复入库");
-            }
-
+            throw new ServiceException(String.format("短链接：%s 生成重复", fullShortUrl));
         }
         shortUriCreateCachePenetrationBloomFilter.add(fullShortUrl);
         // 缓存预热
@@ -494,7 +486,7 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
 
     private String generateSuffix(ShortLinkCreateReqDTO requestParam) {
         String originUrl = requestParam.getOriginUrl();
-        originUrl += System.currentTimeMillis();
+        originUrl += UUID.randomUUID().toString();
         String shortUri;
         int count = 0;
         while (true) {

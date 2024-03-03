@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date: 2023-11-29-15:03
  * @Description: 回收站控制层
  */
-@RestController
+@RestController(value = "recycleBinControllerByAdmin")
 @RequiredArgsConstructor
 public class RecycleBinController {
 

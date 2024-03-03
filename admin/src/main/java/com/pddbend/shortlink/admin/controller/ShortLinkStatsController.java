@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date: 2023-12-03-19:37
  * @Description: 短链接监控控制层
  */
-@RestController
+@RestController(value = "shortLinkStatsControllerByAdmin")
 @RequiredArgsConstructor
 public class ShortLinkStatsController {
 

@@ -2,8 +2,8 @@ package com.pddbend.shortlink.admin.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pddbend.shortlink.admin.common.biz.user.UserContext;
 import com.pddbend.shortlink.admin.common.convention.exception.ServiceException;
 import com.pddbend.shortlink.admin.common.convention.result.Result;
@@ -15,7 +15,6 @@ import com.pddbend.shortlink.admin.remote.dto.resp.ShortLinkPageRespDTO;
 import com.pddbend.shortlink.admin.service.RecycleBinService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import java.util.List;
 
@@ -24,7 +23,7 @@ import java.util.List;
  * @Date: 2023-11-29-20:53
  * @Description: URL 回收站接口实现层
  */
-@Service
+@Service(value = "recycleBinServiceImplByAdmin")
 @RequiredArgsConstructor
 public class RecycleBinServiceImpl implements RecycleBinService {
 

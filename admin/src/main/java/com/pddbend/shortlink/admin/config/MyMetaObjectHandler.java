@@ -3,6 +3,7 @@ package com.pddbend.shortlink.admin.config;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -13,7 +14,8 @@ import java.util.Date;
  * @Description: MybatisPlus自动填充配置
  */
 @Slf4j
-@Component
+@Primary
+@Component(value = "myMetaObjectHandlerByAdmin")
 public class MyMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {

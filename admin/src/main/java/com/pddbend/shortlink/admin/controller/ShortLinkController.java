@@ -26,7 +26,7 @@ import java.util.List;
  * @Date: 2023-11-26-16:49
  * @Description: 短链接后管控制层
  */
-@RestController
+@RestController(value = "shortLinkControllerByAdmin")
 @RequiredArgsConstructor
 public class ShortLinkController {
 
